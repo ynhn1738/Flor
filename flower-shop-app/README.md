@@ -78,9 +78,15 @@ workerUrl: "https://flor-image.<you>.workers.dev",
 
 After you publish the site, set `ALLOWED_ORIGINS` in `wrangler.toml` to your domain so other sites cannot use your quota.
 
-### Host the site for free
+### Host the site for free (Cloudflare Pages)
 
-Cloudflare Pages, Netlify or GitHub Pages: upload the `flower-shop-app` folder as is.
+Cloudflare Pages hosts the site and, through `functions/api/image.js`, generates images with Workers AI at the same `/api/image` address, so `js/config.js` needs no change and no separate worker.
+
+1. dash.cloudflare.com → Workers & Pages → Create → Pages → Import an existing Git repository → pick `Flor`.
+2. Framework preset: None. Build command: empty. Build output directory: `.`. Root directory: `flower-shop-app`.
+3. After the first deploy: Settings → Bindings → Add → Workers AI, variable name `AI`. Then Deployments → Retry deployment.
+
+Every push to `main` redeploys the site. Pages uses FLUX.1 schnell; the FLUX.2 reference-photo mode only runs in `server.py`.
 
 ## Real bouquet photos (main image)
 
