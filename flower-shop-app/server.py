@@ -12,6 +12,7 @@ Optional env:
   POLLINATIONS_KEY=sk_...       → Pollinations FLUX without watermark.
   (none)                        → anonymous Pollinations: lighter model + watermark.
   PORT=8080
+  HOST=0.0.0.0                  → also serve to phones on the same Wi-Fi (default: this computer only)
 """
 
 import base64
@@ -34,6 +35,7 @@ if os.path.exists(_env_file):
                 os.environ.setdefault(name.strip(), value.strip().strip('"'))
 
 PORT = int(os.environ.get("PORT", "8080"))
+HOST = os.environ.get("HOST", "127.0.0.1").strip() or "127.0.0.1"
 KEY = os.environ.get("POLLINATIONS_KEY", "").strip()
 CF_ACCOUNT = os.environ.get("CF_ACCOUNT_ID", "").strip()
 CF_TOKEN = os.environ.get("CF_API_TOKEN", "").strip()
@@ -152,4 +154,13 @@ class Handler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     provider = f"Cloudflare {CF_MODEL.rsplit('/', 1)[-1]}" if CF_ACCOUNT and CF_TOKEN else f"Pollinations {'with key' if KEY else 'anonymous (lower quality)'}"
     print(f"Flơr running at http://localhost:{PORT}  · images: {provider}")
-    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+    if HOST == "0.0.0.0":
+        import socket
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                s.connect(("10.255.255.255", 1))  # no packet is sent; picks the Wi-Fi address
+                lan_ip = s.getsockname()[0]
+            print(f"On your phone (same Wi-Fi): http://{lan_ip}:{PORT}")
+        except OSError:
+            print("On your phone (same Wi-Fi): http://<this computer's IP>:" + str(PORT))
+    ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()

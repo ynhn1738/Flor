@@ -18,6 +18,16 @@ python server.py
 
 Open http://localhost:8080. Do not use a plain static server: Pollinations rejects image requests sent straight from a browser (`Missing Turnstile token`), so images must go through `server.py` or the Cloudflare worker.
 
+### Open it on your phone
+
+With the phone on the same Wi-Fi as the computer, start the server with `HOST=0.0.0.0`:
+
+```
+HOST=0.0.0.0 ./start.command
+```
+
+It prints an address like `http://192.168.1.20:8080`; open that in Safari on the phone. The first time, macOS may ask whether to allow incoming connections for Python: choose Allow. Anyone on the same Wi-Fi can open the app while it runs this way. Saving the order card works; the Zalo "Share" button still needs the HTTPS site.
+
 For realistic FLUX images, give the server free Cloudflare credentials (PowerShell):
 
 ```
