@@ -24,7 +24,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# Settings from app/.env (KEY=value per line); real environment variables win.
+# Settings from flower-shop-app/.env (KEY=value per line); real environment variables win.
 _env_file = os.path.join(ROOT, ".env")
 if os.path.exists(_env_file):
     with open(_env_file, encoding="utf-8") as f:

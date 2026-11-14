@@ -12,7 +12,7 @@ Customers describe the receiver (occasion, budget, delivery date, gender, age, d
 No build step. Start the bundled server; it serves the app and generates images at `/api/image`:
 
 ```
-cd app
+cd flower-shop-app
 python server.py
 ```
 
@@ -54,7 +54,7 @@ When market prices change, edit `unit` in `FLOWERS` and `GREENS` in `data.js`. W
 
 ```
 npm install -g wrangler
-cd app/worker
+cd flower-shop-app/worker
 wrangler login
 wrangler deploy
 ```
@@ -70,7 +70,7 @@ After you publish the site, set `ALLOWED_ORIGINS` in `wrangler.toml` to your dom
 
 ### Host the site for free
 
-Cloudflare Pages, Netlify or GitHub Pages: upload the `app` folder as is.
+Cloudflare Pages, Netlify or GitHub Pages: upload the `flower-shop-app` folder as is.
 
 ## Real bouquet photos (main image)
 
