@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" fill="#8f957a">
+  <defs>
+    <g id="b">
+      <circle cx="0" cy="-9" r="8"/><circle cx="8.6" cy="-2.8" r="8"/><circle cx="5.3" cy="7.3" r="8"/>
+      <circle cx="-5.3" cy="7.3" r="8"/><circle cx="-8.6" cy="-2.8" r="8"/>
+    </g>
+    <g id="bud"><ellipse rx="4" ry="7"/></g>
+  </defs>
+  <g fill="none" stroke="#8f957a" stroke-linecap="round">
+    <path d="M40 600 C120 470 180 420 260 330 S360 170 470 90" stroke-width="7"/>
+    <path d="M200 395 C170 350 150 320 110 300" stroke-width="4"/>
+    <path d="M300 285 C340 270 380 240 410 200" stroke-width="4"/>
+    <path d="M380 165 C360 130 355 100 360 60" stroke-width="3"/>
+    <path d="M140 500 C190 500 230 480 260 450" stroke-width="3"/>
+  </g>
+  <use href="#b" transform="translate(110 300) scale(1.6)"/>
+  <use href="#b" transform="translate(150 330) scale(1.1)"/>
+  <use href="#b" transform="translate(410 200) scale(1.8)"/>
+  <use href="#b" transform="translate(470 90) scale(1.5)"/>
+  <use href="#b" transform="translate(360 60) scale(1.2)"/>
+  <use href="#b" transform="translate(260 450) scale(1.4)"/>
+  <use href="#b" transform="translate(300 285) scale(1.0)"/>
+  <use href="#bud" transform="translate(205 385) rotate(-30)"/>
+  <use href="#bud" transform="translate(345 255) rotate(40)"/>
+  <use href="#bud" transform="translate(500 70) rotate(60)"/>
+  <use href="#bud" transform="translate(185 495) rotate(80)"/>
+</svg>

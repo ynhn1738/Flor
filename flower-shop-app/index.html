@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flơr · Thiết kế bó hoa của riêng bạn</title>
+  <meta name="description" content="Flơr — Hơn cả một cánh hoa. Kể cho Flơr về người nhận, AI sẽ thiết kế một bó hoa dành riêng cho họ." />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Great+Vibes&family=Prata&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="blossoms" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="brand" href="./"><img src="assets/logo.png" alt="Flơr — Estd. 2025" /></a>
+    <a class="top-contact" href="https://zalo.me/84775422217" target="_blank" rel="noopener">Zalo · 077 5422 217</a>
+  </header>
+
+  <!-- ================= Intro ================= -->
+  <section id="intro" class="view active">
+    <img class="hero-logo" src="assets/logo-large.png" alt="Flơr" />
+    <p class="slogan">“Hơn cả một cánh hoa<br /><span>More than a petal”</span></p>
+    <h1>Bó hoa chỉ dành riêng cho <em>một người</em></h1>
+    <p class="lead">Kể cho Flơr nghe về người nhận — dịp tặng, cung hoàng đạo, MBTI, sở thích. AI sẽ thiết kế một bó hoa độc bản, đúng ngân sách của bạn.</p>
+    <button class="btn primary" data-go="1">Bắt đầu thiết kế</button>
+    <ol class="how">
+      <li><b>1</b>Kể về người nhận</li>
+      <li><b>2</b>AI thiết kế bó hoa</li>
+      <li><b>3</b>Lưu ảnh &amp; gửi Flơr qua Zalo</li>
+    </ol>
+  </section>
+
+  <!-- ================= Wizard ================= -->
+  <form id="wizard" class="view" autocomplete="off" novalidate>
+    <div class="progress"><span></span><span></span><span></span><span></span></div>
+
+    <!-- Step 1 -->
+    <fieldset class="step" data-step="1">
+      <legend><small>Bước 1/4</small>Dịp tặng &amp; ngân sách</legend>
+      <label class="q">Bạn tặng hoa nhân dịp gì?</label>
+      <div class="chips" id="occasionChips" data-name="occasion" data-single></div>
+
+      <label class="q" for="budget">Ngân sách <output id="budgetOut"></output></label>
+      <input type="range" id="budget" name="budget" step="10000" />
+      <div class="range-ticks"><span>150k</span><span>500k</span><span>1tr</span><span>1,5tr</span></div>
+
+      <label class="q" for="deliveryDate">Ngày nhận hoa</label>
+      <input type="date" id="deliveryDate" name="deliveryDate" />
+      <p class="hint" id="seasonHint"></p>
+    </fieldset>
+
+    <!-- Step 2 -->
+    <fieldset class="step" data-step="2">
+      <legend><small>Bước 2/4</small>Người nhận là ai?</legend>
+      <div class="grid2">
+        <div><label class="q" for="rName">Tên người nhận</label><input id="rName" name="rName" placeholder="VD: Linh" maxlength="40" /></div>
+        <div>
+          <label class="q" for="relation">Mối quan hệ</label>
+          <select id="relation" name="relation">
+            <option value="">— Chọn —</option>
+            <option>Người yêu</option><option>Vợ / Chồng</option><option>Mẹ</option><option>Bố</option>
+            <option>Bạn bè</option><option>Thầy / Cô</option><option>Đồng nghiệp</option><option>Sếp / Đối tác</option>
+            <option>Bản thân</option><option>Khác</option>
+          </select>
+        </div>
+      </div>
+      <label class="q">Giới tính</label>
+      <div class="chips" data-name="gender" data-single>
+        <button type="button" data-v="female">Nữ</button>
+        <button type="button" data-v="male">Nam</button>
+        <button type="button" data-v="other">Khác / Không muốn nói</button>
+      </div>
+      <div class="grid2">
+        <div><label class="q" for="dob">Ngày sinh <small>(để xem cung hoàng đạo)</small></label><input type="date" id="dob" name="dob" /></div>
+        <div><label class="q" for="age">Tuổi <small>(nếu không rõ ngày sinh)</small></label><input type="number" id="age" name="age" min="1" max="110" inputmode="numeric" /></div>
+      </div>
+      <p class="zodiac-badge" id="zodiacBadge" hidden></p>
+    </fieldset>
+
+    <!-- Step 3 -->
+    <fieldset class="step" data-step="3">
+      <legend><small>Bước 3/4</small>Tính cách</legend>
+      <label class="q">MBTI của người nhận</label>
+      <div class="mbti" id="mbtiGrid"></div>
+      <p class="hint" id="mbtiHint">Không rõ? Cứ bỏ qua — Flơr sẽ dựa vào các thông tin khác.</p>
+
+      <label class="q">Bạn muốn bó hoa mang cảm giác…</label>
+      <div class="chips" id="vibeChips" data-name="vibe" data-single></div>
+    </fieldset>
+
+    <!-- Step 4 -->
+    <fieldset class="step" data-step="4">
+      <legend><small>Bước 4/4</small>Sở thích &amp; lời nhắn</legend>
+      <label class="q">Màu yêu thích <small>(tối đa 3)</small></label>
+      <div class="swatches" id="colorChips" data-name="colors" data-max="3"></div>
+
+      <label class="q">Loài hoa yêu thích</label>
+      <div class="chips small" id="flowerChips" data-name="flowers" data-max="3"></div>
+
+      <label class="q">Tránh loài hoa nào? <small>(dị ứng, không thích mùi…)</small></label>
+      <div class="chips small" id="avoidChips" data-name="avoid"></div>
+
+      <label class="q">Giấy gói</label>
+      <div class="swatches" id="wrapChips" data-name="wrap" data-single></div>
+
+      <label class="q" for="message">Lời nhắn trên thiệp</label>
+      <textarea id="message" name="message" rows="3" maxlength="200" placeholder="Để trống, Flơr sẽ gợi ý một lời chúc"></textarea>
+
+      <div class="grid2">
+        <div><label class="q" for="cName">Tên của bạn</label><input id="cName" name="cName" maxlength="40" /></div>
+        <div><label class="q" for="cPhone">Số điện thoại</label><input id="cPhone" name="cPhone" inputmode="tel" maxlength="15" /></div>
+      </div>
+    </fieldset>
+
+    <div class="nav">
+      <button type="button" class="btn ghost" id="backBtn">Quay lại</button>
+      <button type="button" class="btn primary" id="nextBtn">Tiếp tục</button>
+    </div>
+  </form>
+
+  <!-- ================= Result ================= -->
+  <section id="result" class="view">
+    <article id="orderCard" class="card">
+      <header class="card-head">
+        <img src="assets/logo.png" alt="Flơr" />
+        <div>
+          <p class="card-kicker">Phiếu thiết kế hoa · Bouquet design</p>
+          <p class="card-code" id="rCode"></p>
+        </div>
+      </header>
+
+      <div class="card-body">
+        <figure class="photo">
+          <div class="frame">
+            <span class="photo-tag" id="rPhotoTag"></span>
+            <img id="rImg" alt="Bó hoa tham khảo" />
+            <div class="loading" id="rLoading" hidden>
+              <div class="petals"><i></i><i></i><i></i><i></i><i></i></div>
+              <p id="rLoadingText">Flơr đang phác thảo…</p>
+            </div>
+          </div>
+          <div class="thumbs" id="rThumbs" data-html2canvas-ignore></div>
+          <figcaption id="rCaption"></figcaption>
+        </figure>
+
+        <div class="details">
+          <p class="for" id="rFor"></p>
+          <h2 id="rBqName" class="bq-name"></h2>
+          <div class="palette" id="rPalette"></div>
+
+          <h3>Thành phần</h3>
+          <ul class="recipe" id="rRecipe"></ul>
+
+          <div class="price-row">
+            <div><span>Giá tham khảo</span><b id="rPrice"></b></div>
+            <div><span>Kích thước</span><b id="rSize"></b></div>
+          </div>
+          <p class="hint" id="rPriceNote"></p>
+
+          <h3>Vì sao là bó hoa này?</h3>
+          <ul class="reasons" id="rReasons"></ul>
+
+          <blockquote class="wish" id="rWish"></blockquote>
+          <p class="meta" id="rMeta"></p>
+        </div>
+      </div>
+
+      <footer class="card-foot">
+        <span>Zalo / ĐT (+84) 77 5422 217</span>
+        <span>contact@florinsaigon.com</span>
+        <span>IG · TikTok · FB: florinsaigon</span>
+      </footer>
+    </article>
+
+    <div class="actions">
+      <button class="btn primary" id="saveBtn">Lưu ảnh phiếu</button>
+      <button class="btn primary" id="shareBtn" hidden>Chia sẻ / Gửi</button>
+      <a class="btn zalo" id="zaloBtn" href="https://zalo.me/84775422217" target="_blank" rel="noopener">Gửi Flơr qua Zalo</a>
+    </div>
+    <div class="actions secondary">
+      <button class="btn ghost" id="regenImgBtn" hidden>Bản phác AI khác</button>
+      <button class="btn ghost" id="remixBtn">Gợi ý bó khác</button>
+      <button class="btn ghost" id="editBtn">Sửa thông tin</button>
+    </div>
+    <p class="hint center">Lưu ảnh phiếu rồi gửi cho Flơr qua Zalo hoặc Instagram để đặt hoa. Flơr sẽ xác nhận giá &amp; hoa có sẵn trong ngày.</p>
+  </section>
+
+  <footer class="site-foot">© Flơr · florinsaigon · Estd. 2025</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/image.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
